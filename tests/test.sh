@@ -13,7 +13,7 @@ for test in $(ls *.test) ; do
 	IP="$(head -n2 $test | tail -n1)"
 	RESULT="$(head -n3 $test | tail -n1)"
 	printf "Testing %s: " $test
-	LD_PRELOAD=../spoofproxy.so nc -lvp 8000 > $OUT_LOC 2>&1 &
+	LD_PRELOAD=../out/spoofproxy.so nc -lvp 8000 > $OUT_LOC 2>&1 &
 	sleep 0.1
 	printf "%s" "$PAYLOAD" | nc localhost 8000 > /dev/null 2>&1 &
 	sleep 0.1
