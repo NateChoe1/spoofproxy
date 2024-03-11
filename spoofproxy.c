@@ -38,6 +38,11 @@ int accept4(int sockfd, struct sockaddr *addr, socklen_t *addrlen, int flags) {
 	if ((fd = real_accept4(sockfd, addr, addrlen, flags)) < 0) {
 		return fd;
 	}
+
+	/* As far as I can tell, this is good enough */
+	if (addr->sa_family != AF_INET && addr->sa_family != AF_INET6) {
+		return fd;
+	}
 	if (get_real_address(fd, addr, addrlen) != 0) {
 		close(fd);
 		errno = EPROTO;
