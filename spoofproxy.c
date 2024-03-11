@@ -77,15 +77,13 @@ static int get_real_address(int fd, struct sockaddr *addr, socklen_t *addrlen) {
 	char *lineptr;
 	char *scratch;
 	int af;
-/*	struct pollfd pfd;*/
+	struct pollfd pfd;
 	void *addrloc;
 
 	/* 100ms timeout */
-	/*
 	pfd.fd = fd;
 	pfd.events = POLLIN;
 	poll(&pfd, 1, 100);
-	*/
 
 	oldflags = fcntl(fd, F_GETFL);
 	if (!(oldflags & O_NONBLOCK) &&
